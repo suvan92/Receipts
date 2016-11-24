@@ -20,7 +20,7 @@ static NSString * const cellReuseIdentifier = @"cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
 }
 
 - (IBAction)addReceiptButton:(UIButton *)sender {
@@ -29,14 +29,30 @@ static NSString * const cellReuseIdentifier = @"cell";
 
 #pragma mark - Table View
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return ((NSArray *)[self fetchReceipts]).count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReuseIdentifier forIndexPath:indexPath];
     
     return cell;
+}
+
+-(void)configureCell:(UITableViewCell *)cell withReceipt:(Receipt *)receipt {
+    
+}
+
+-(NSArray *)fetchReceipts {
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Receipt"];
+    NSError *error = nil;
+    NSArray *arrayOfReceipts = ((NSArray *)[self.context executeRequest:fetchRequest error:&error]);
+    return arrayOfReceipts;
 }
 
 @end
