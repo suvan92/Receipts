@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "NewReceiptViewController.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -48,11 +49,22 @@ static NSString * const cellReuseIdentifier = @"cell";
     
 }
 
+#pragma mark - Fetch Requests
+
 -(NSArray *)fetchReceipts {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Receipt"];
     NSError *error = nil;
     NSArray *arrayOfReceipts = ((NSArray *)[self.context executeRequest:fetchRequest error:&error]);
     return arrayOfReceipts;
+}
+
+#pragma mark - Segues
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:newReceiptSegueIdentifier]) {
+        NewReceiptViewController *newReceiptVC = segue.destinationViewController;
+        newReceiptVC.context = self.context;
+    }
 }
 
 @end

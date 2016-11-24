@@ -10,6 +10,10 @@
 
 @interface NewReceiptViewController ()
 
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UITextField *amountTextField;
+@property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
+
 @end
 
 @implementation NewReceiptViewController
@@ -24,7 +28,6 @@
 }
 
 - (IBAction)saveButton:(UIButton *)sender {
-    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
