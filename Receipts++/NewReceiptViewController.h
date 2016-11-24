@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "Receipts__+CoreDataModel.h"
 
 @interface NewReceiptViewController : UIViewController
 

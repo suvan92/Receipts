@@ -22,7 +22,7 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self createTags];
 }
 
 - (IBAction)addReceiptButton:(UIButton *)sender {
@@ -32,7 +32,7 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
 #pragma mark - Table View
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1; //((NSArray *)[self fetchTags]).count;
+    return ((NSArray *)[self fetchTags]).count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -40,19 +40,16 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReuseIdentifier forIndexPath:indexPath];
-    return cell;
-}
-
--(void)configureCell:(UITableViewCell *)cell withReceipt:(Receipt *)receipt {
+    ReceiptCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReuseIdentifier forIndexPath:indexPath];
     
+    return cell;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return @"Hello";
 }
 
-#pragma mark - Fetch Requests
+#pragma mark - Core Data
 
 -(NSArray *)fetchReceipts {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Receipt"];
@@ -66,6 +63,18 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
     NSError *error = nil;
     NSArray *arrayOfTags = ((NSArray *)[self.context executeRequest:fetchRequest error:&error]);
     return arrayOfTags;
+}
+
+-(void)createTags {
+    NSArray *arrayOfTags = [self fetchTags];
+    if (arrayOfTags.count == 0) {
+        Tag *personal = [[Tag alloc] initWithContext:self.context];
+        personal.tagName = @"Personal";
+        Tag *family = [[Tag alloc] initWithContext:self.context];
+        family.tagName = @"Family";
+        Tag *business = [[Tag alloc] initWithContext:self.context];
+        business.tagName = @"Business";
+    }
 }
 
 #pragma mark - Segues

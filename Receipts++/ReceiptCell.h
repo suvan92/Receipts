@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Receipts__+CoreDataModel.h"
 
 @interface ReceiptCell : UITableViewCell
+
+-(void)configureCellWithReceipt:(Receipt *)recepit;
 
 @end

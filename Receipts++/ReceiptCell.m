@@ -29,4 +29,9 @@
     // Configure the view for the selected state
 }
 
+-(void)configureCellWithReceipt:(Receipt *)recepit {
+    self.descriptionLabel.text = recepit.note;
+    self.amountLabel.text = recepit.amount;
+}
+
 @end
