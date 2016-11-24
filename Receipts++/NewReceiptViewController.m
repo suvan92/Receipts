@@ -19,6 +19,13 @@
     // Do any additional setup after loading the view.
 }
 
+- (IBAction)canelButton:(UIButton *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
+- (IBAction)saveButton:(UIButton *)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end
