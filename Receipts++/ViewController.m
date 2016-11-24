@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "NewReceiptViewController.h"
+#import "ReceiptCell.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -17,7 +18,7 @@
 @implementation ViewController
 
 static NSString * const newReceiptSegueIdentifier = @"newReceiptVC";
-static NSString * const cellReuseIdentifier = @"cell";
+static NSString * const cellReuseIdentifier = @"receiptCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,22 +32,24 @@ static NSString * const cellReuseIdentifier = @"cell";
 #pragma mark - Table View
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 1; //((NSArray *)[self fetchTags]).count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return ((NSArray *)[self fetchReceipts]).count;
+    return 1; //((NSArray *)[self fetchReceipts]).count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReuseIdentifier forIndexPath:indexPath];
-    
     return cell;
 }
 
 -(void)configureCell:(UITableViewCell *)cell withReceipt:(Receipt *)receipt {
     
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"Hello";
 }
 
 #pragma mark - Fetch Requests
@@ -56,6 +59,13 @@ static NSString * const cellReuseIdentifier = @"cell";
     NSError *error = nil;
     NSArray *arrayOfReceipts = ((NSArray *)[self.context executeRequest:fetchRequest error:&error]);
     return arrayOfReceipts;
+}
+
+-(NSArray *)fetchTags {
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Tag"];
+    NSError *error = nil;
+    NSArray *arrayOfTags = ((NSArray *)[self.context executeRequest:fetchRequest error:&error]);
+    return arrayOfTags;
 }
 
 #pragma mark - Segues

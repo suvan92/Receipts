@@ -15,6 +15,7 @@
 		14387F3E1DE7729400EC2CB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14387F3D1DE7729400EC2CB0 /* Assets.xcassets */; };
 		14387F411DE7729400EC2CB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14387F3F1DE7729400EC2CB0 /* LaunchScreen.storyboard */; };
 		14387F4E1DE778AD00EC2CB0 /* NewReceiptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14387F4D1DE778AD00EC2CB0 /* NewReceiptViewController.m */; };
+		14387F511DE793BC00EC2CB0 /* ReceiptCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14387F501DE793BC00EC2CB0 /* ReceiptCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,8 @@
 		14387F421DE7729400EC2CB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14387F4C1DE778AD00EC2CB0 /* NewReceiptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewReceiptViewController.h; sourceTree = "<group>"; };
 		14387F4D1DE778AD00EC2CB0 /* NewReceiptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewReceiptViewController.m; sourceTree = "<group>"; };
+		14387F4F1DE793BC00EC2CB0 /* ReceiptCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiptCell.h; sourceTree = "<group>"; };
+		14387F501DE793BC00EC2CB0 /* ReceiptCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiptCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +118,8 @@
 		14387F4B1DE7748A00EC2CB0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				14387F4F1DE793BC00EC2CB0 /* ReceiptCell.h */,
+				14387F501DE793BC00EC2CB0 /* ReceiptCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -190,6 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14387F511DE793BC00EC2CB0 /* ReceiptCell.m in Sources */,
 				14387F3C1DE7729400EC2CB0 /* Receipts__.xcdatamodeld in Sources */,
 				14387F361DE7729400EC2CB0 /* ViewController.m in Sources */,
 				14387F4E1DE778AD00EC2CB0 /* NewReceiptViewController.m in Sources */,
