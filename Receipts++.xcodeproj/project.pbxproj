@@ -60,15 +60,10 @@
 		14387F2D1DE7729400EC2CB0 /* Receipts++ */ = {
 			isa = PBXGroup;
 			children = (
-				14387F311DE7729400EC2CB0 /* AppDelegate.h */,
-				14387F321DE7729400EC2CB0 /* AppDelegate.m */,
-				14387F341DE7729400EC2CB0 /* ViewController.h */,
-				14387F351DE7729400EC2CB0 /* ViewController.m */,
-				14387F371DE7729400EC2CB0 /* Main.storyboard */,
-				14387F3D1DE7729400EC2CB0 /* Assets.xcassets */,
-				14387F3F1DE7729400EC2CB0 /* LaunchScreen.storyboard */,
-				14387F421DE7729400EC2CB0 /* Info.plist */,
-				14387F3A1DE7729400EC2CB0 /* Receipts__.xcdatamodeld */,
+				14387F4B1DE7748A00EC2CB0 /* Views */,
+				14387F4A1DE7748800EC2CB0 /* UI */,
+				14387F491DE7748600EC2CB0 /* Controllers */,
+				14387F481DE7748400EC2CB0 /* Models */,
 				14387F2E1DE7729400EC2CB0 /* Supporting Files */,
 			);
 			path = "Receipts++";
@@ -77,9 +72,46 @@
 		14387F2E1DE7729400EC2CB0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				14387F3D1DE7729400EC2CB0 /* Assets.xcassets */,
+				14387F421DE7729400EC2CB0 /* Info.plist */,
+				14387F3A1DE7729400EC2CB0 /* Receipts__.xcdatamodeld */,
 				14387F2F1DE7729400EC2CB0 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		14387F481DE7748400EC2CB0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				14387F311DE7729400EC2CB0 /* AppDelegate.h */,
+				14387F321DE7729400EC2CB0 /* AppDelegate.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		14387F491DE7748600EC2CB0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				14387F341DE7729400EC2CB0 /* ViewController.h */,
+				14387F351DE7729400EC2CB0 /* ViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		14387F4A1DE7748800EC2CB0 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				14387F371DE7729400EC2CB0 /* Main.storyboard */,
+				14387F3F1DE7729400EC2CB0 /* LaunchScreen.storyboard */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		14387F4B1DE7748A00EC2CB0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
