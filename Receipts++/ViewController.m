@@ -10,6 +10,8 @@
 #import "NewReceiptViewController.h"
 #import "ReceiptCell.h"
 
+@class Tag;
+
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -59,15 +61,24 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
 }
 
 -(NSArray *)fetchTags {
+    
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Tag"];
+  
+    
+    
+    //NSFetchRequest *fetch = [[NSFetchRequest alloc] initWithEntityName:@"Tag"];
+    
     NSError *error = nil;
-    NSArray *arrayOfTags = ((NSArray *)[self.context executeRequest:fetchRequest error:&error]);
+    NSArray *arrayOfTags = ((NSArray<Tag *> *)[self.context executeRequest:fetchRequest error:&error]);
     return arrayOfTags;
+    
 }
 
 -(void)createTags {
+    
     NSArray *arrayOfTags = [self fetchTags];
-    if (arrayOfTags.count == 0) {
+    
+    if (!arrayOfTags) {
         Tag *personal = [[Tag alloc] initWithContext:self.context];
         personal.tagName = @"Personal";
         Tag *family = [[Tag alloc] initWithContext:self.context];

@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *amountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
 @property (strong, nonatomic) UITapGestureRecognizer *tapGR;
+@property (strong, nonatomic) NSMutableArray *listOfTagsToAdd;
 
 @end
 
@@ -25,6 +26,7 @@ static NSString * const tagCellReuseIdentifier = @"tagCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addTapGesure];
+    self.listOfTagsToAdd = [NSMutableArray new];
 }
 
 - (IBAction)canelButton:(UIButton *)sender {
@@ -43,14 +45,18 @@ static NSString * const tagCellReuseIdentifier = @"tagCell";
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1; //((NSArray *)[self fetchTags]).count;
+    return ((NSArray *)[self fetchTags]).count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tagCellReuseIdentifier forIndexPath:indexPath];
-//    NSArray *arrayOfTags = [self fetchTags];
-    cell.textLabel.text = @"A tag"; //((Tag *)arrayOfTags[indexPath.row]).tagName;
+    NSArray *allTags = [self fetchTags];
+    cell.textLabel.text = ((Tag *)allTags[indexPath.row]).tagName;
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 #pragma mark - CoreData
@@ -68,9 +74,6 @@ static NSString * const tagCellReuseIdentifier = @"tagCell";
     receipt.note = self.descriptionTextField.text;
     receipt.timeStamp = self.datePicker.date;
 }
-
-
-
 
 #pragma mark - Gestures
 
