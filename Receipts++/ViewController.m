@@ -8,12 +8,15 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation ViewController
+
+static NSString * const newReceiptSegueIdentifier = @"newReceiptVC";
+static NSString * const cellReuseIdentifier = @"cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -21,7 +24,19 @@
 }
 
 - (IBAction)addReceiptButton:(UIButton *)sender {
+    [self performSegueWithIdentifier:newReceiptSegueIdentifier sender:self];
 }
 
+#pragma mark - Table View
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReuseIdentifier forIndexPath:indexPath];
+    
+    return cell;
+}
 
 @end

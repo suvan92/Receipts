@@ -14,6 +14,7 @@
 		14387F3C1DE7729400EC2CB0 /* Receipts__.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 14387F3A1DE7729400EC2CB0 /* Receipts__.xcdatamodeld */; };
 		14387F3E1DE7729400EC2CB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14387F3D1DE7729400EC2CB0 /* Assets.xcassets */; };
 		14387F411DE7729400EC2CB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14387F3F1DE7729400EC2CB0 /* LaunchScreen.storyboard */; };
+		14387F4E1DE778AD00EC2CB0 /* NewReceiptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14387F4D1DE778AD00EC2CB0 /* NewReceiptViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,8 @@
 		14387F3D1DE7729400EC2CB0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14387F401DE7729400EC2CB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		14387F421DE7729400EC2CB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		14387F4C1DE778AD00EC2CB0 /* NewReceiptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewReceiptViewController.h; sourceTree = "<group>"; };
+		14387F4D1DE778AD00EC2CB0 /* NewReceiptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewReceiptViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +97,8 @@
 			children = (
 				14387F341DE7729400EC2CB0 /* ViewController.h */,
 				14387F351DE7729400EC2CB0 /* ViewController.m */,
+				14387F4C1DE778AD00EC2CB0 /* NewReceiptViewController.h */,
+				14387F4D1DE778AD00EC2CB0 /* NewReceiptViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -187,6 +192,7 @@
 			files = (
 				14387F3C1DE7729400EC2CB0 /* Receipts__.xcdatamodeld in Sources */,
 				14387F361DE7729400EC2CB0 /* ViewController.m in Sources */,
+				14387F4E1DE778AD00EC2CB0 /* NewReceiptViewController.m in Sources */,
 				14387F331DE7729400EC2CB0 /* AppDelegate.m in Sources */,
 				14387F301DE7729400EC2CB0 /* main.m in Sources */,
 			);
