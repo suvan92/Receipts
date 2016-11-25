@@ -64,6 +64,10 @@ static NSString * const tagCellReuseIdentifier = @"tagCell";
 -(NSArray *)fetchTags {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Tag"];
     NSError *error = nil;
+    
+    
+    
+    
     NSArray *arrayOfTags = ((NSArray *)[self.context executeRequest:fetchRequest error:&error]);
     return arrayOfTags;
 }

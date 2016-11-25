@@ -24,6 +24,8 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     [self createTags];
 }
 
@@ -34,7 +36,7 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
 #pragma mark - Table View
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return ((NSArray *)[self fetchTags]).count;
+    return 1; // ((NSArray *)[self fetchTags]).count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -63,13 +65,13 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
 -(NSArray *)fetchTags {
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Tag"];
-  
-    
-    
-    //NSFetchRequest *fetch = [[NSFetchRequest alloc] initWithEntityName:@"Tag"];
     
     NSError *error = nil;
-    NSArray *arrayOfTags = ((NSArray<Tag *> *)[self.context executeRequest:fetchRequest error:&error]);
+    
+    NSAsynchronousFetchResult *result = [self.context executeRequest:fetchRequest error:&error];
+    
+    NSArray *arrayOfTags = result.finalResult;
+    
     return arrayOfTags;
     
 }
@@ -77,15 +79,39 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
 -(void)createTags {
     
     NSArray *arrayOfTags = [self fetchTags];
+    NSLog(@"Number of items: %ld", arrayOfTags.count);
     
-    if (!arrayOfTags) {
-        Tag *personal = [[Tag alloc] initWithContext:self.context];
+    if (arrayOfTags.count == 0) {
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag" inManagedObjectContext:self.context];
+        Tag *personal = [[Tag alloc] initWithEntity:entity insertIntoManagedObjectContext:self.context];
         personal.tagName = @"Personal";
-        Tag *family = [[Tag alloc] initWithContext:self.context];
+        
+        Tag *family = [[Tag alloc] initWithEntity:entity insertIntoManagedObjectContext:self.context];
         family.tagName = @"Family";
-        Tag *business = [[Tag alloc] initWithContext:self.context];
+        
+        Tag *business = [[Tag alloc] initWithEntity:entity insertIntoManagedObjectContext:self.context];
         business.tagName = @"Business";
+        
+        NSError *error = nil;
+        
+        [self.context save:&error];
+
     }
+
+    
+//    if (arrayOfTags.count == 0) {
+//        
+//        
+//        
+//     //   Tag *newTag = [[Tag alloc] initWithContext:self.context];
+//        
+//        //NSEntityDescription *tagDe
+//        
+////        Tag *record = [[Tag alloc] initWithEntity:Tag insertIntoManagedObjectContext:self.context];
+//
+////        Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag" inManagedObjectContext:self.context];
+//        
+//    }
 }
 
 #pragma mark - Segues

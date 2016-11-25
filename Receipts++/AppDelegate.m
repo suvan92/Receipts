@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,7 +18,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    ViewController *vc = (ViewController *)self.window.rootViewController;
+    vc.context = self.persistentContainer.viewContext;
+    //0x608000093740
     return YES;
+    
 }
 
 
@@ -51,6 +57,7 @@
 
 
 #pragma mark - Core Data stack
+
 
 @synthesize persistentContainer = _persistentContainer;
 
