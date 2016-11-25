@@ -30,7 +30,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="25"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lH2-Ak-5Nh" id="tMA-te-YPA">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="24"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="24.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fem-dY-5qC">
@@ -167,7 +167,7 @@
                                         <rect key="frame" x="0.0" y="28" width="115" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0yZ-rS-FEJ" id="6BQ-lf-hJ8">
-                                            <rect key="frame" x="0.0" y="0.0" width="115" height="29"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="115" height="29.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -200,6 +200,7 @@
                         <outlet property="amountTextField" destination="cgm-cT-CeW" id="fEQ-JU-Xvo"/>
                         <outlet property="datePicker" destination="6Uo-hH-aZ0" id="Tyr-1n-HRA"/>
                         <outlet property="descriptionTextField" destination="zXZ-ww-SgZ" id="1nz-q6-vzH"/>
+                        <outlet property="tableView" destination="KaK-Qj-Q9Z" id="6vr-wH-3Fo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bJ0-mC-WIN" userLabel="First Responder" sceneMemberID="firstResponder"/>

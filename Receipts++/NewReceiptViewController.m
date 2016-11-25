@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
 @property (strong, nonatomic) UITapGestureRecognizer *tapGR;
 @property (strong, nonatomic) NSMutableArray *listOfTagsToAdd;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *listOfSelectedRows;
 
 @end
 
@@ -27,6 +29,7 @@ static NSString * const tagCellReuseIdentifier = @"tagCell";
     [super viewDidLoad];
     [self addTapGesure];
     self.listOfTagsToAdd = [NSMutableArray new];
+    self.listOfSelectedRows = [NSMutableArray new];
 }
 
 - (IBAction)canelButton:(UIButton *)sender {
@@ -35,6 +38,9 @@ static NSString * const tagCellReuseIdentifier = @"tagCell";
 
 - (IBAction)saveButton:(UIButton *)sender {
     [self createNewReceipt];
+    NSError *error = nil;
+    [self.context save:&error];
+    [self.delegate dataUpdated];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -50,13 +56,22 @@ static NSString * const tagCellReuseIdentifier = @"tagCell";
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tagCellReuseIdentifier forIndexPath:indexPath];
+    
+    if ([self.listOfSelectedRows containsObject:indexPath]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    
     NSArray *allTags = [self fetchTags];
     cell.textLabel.text = ((Tag *)allTags[indexPath.row]).tagName;
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSArray *arrayOfTags = [self fetchTags];
+    Tag *tag = arrayOfTags[indexPath.row];
+    [self.listOfTagsToAdd addObject:tag];
+    [self.listOfSelectedRows addObject:indexPath];
+    [self.tableView reloadData];
 }
 
 #pragma mark - CoreData
@@ -64,19 +79,24 @@ static NSString * const tagCellReuseIdentifier = @"tagCell";
 -(NSArray *)fetchTags {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Tag"];
     NSError *error = nil;
-    
-    
-    
-    
-    NSArray *arrayOfTags = ((NSArray *)[self.context executeRequest:fetchRequest error:&error]);
+    NSAsynchronousFetchResult *result = [self.context executeRequest:fetchRequest error:&error];
+    NSArray *arrayOfTags = result.finalResult;
     return arrayOfTags;
 }
 
 -(void)createNewReceipt {
-    Receipt *receipt = [[Receipt alloc] initWithContext:self.context];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Receipt" inManagedObjectContext:self.context];
+    Receipt *receipt = [[Receipt alloc] initWithEntity:entity insertIntoManagedObjectContext:self.context];
     receipt.amount = self.amountTextField.text;
     receipt.note = self.descriptionTextField.text;
     receipt.timeStamp = self.datePicker.date;
+    [self createRelationships:receipt];
+}
+
+-(void)createRelationships:(Receipt *)receipt {
+    for (Tag *tag in self.listOfTagsToAdd) {
+        [receipt addRelationshipObject:tag];
+    }
 }
 
 #pragma mark - Gestures

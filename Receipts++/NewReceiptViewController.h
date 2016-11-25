@@ -10,8 +10,16 @@
 #import <CoreData/CoreData.h>
 #import "Receipts__+CoreDataModel.h"
 
+@protocol TableViewProtocol <NSObject>
+
+-(void)dataUpdated;
+
+@end
+
 @interface NewReceiptViewController : UIViewController
 
+
+@property (nonatomic, strong) id <TableViewProtocol> delegate;
 @property (nonatomic, strong) NSManagedObjectContext *context;
 
 @end

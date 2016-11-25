@@ -12,7 +12,7 @@
 
 @class Tag;
 
-@interface ViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource, TableViewProtocol>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -25,6 +25,10 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSArray *arrayOfTags = [self fetchTags];
+    Tag *tag = arrayOfTags[0];
+    NSSet *setOfReceipts = [tag relationship];
+    NSLog(@"Tag name: %@, number of receipts: %ld", tag.tagName, setOfReceipts.count);
     
     [self createTags];
 }
@@ -36,21 +40,45 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
 #pragma mark - Table View
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1; // ((NSArray *)[self fetchTags]).count;
+    NSArray *sections = [self fetchTags];
+    return sections.count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1; //((NSArray *)[self fetchReceipts]).count;
+    NSArray *arrayOfTags = [self fetchTags];
+    Tag *tagForSection = arrayOfTags[section];
+    NSSet *relationshipsToTag = [tagForSection relationship];
+    NSInteger rows = relationshipsToTag.count;
+    if (rows > 0) {
+        return rows;
+    }
+    return 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ReceiptCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReuseIdentifier forIndexPath:indexPath];
     
-    return cell;
+    Tag *tag = ((NSArray *)[self fetchTags])[indexPath.section];
+    NSSet *receipts = [tag relationship];
+    if (receipts.count == 0) {
+        return cell;
+    } else {
+        NSArray *receiptsArray = [receipts allObjects];
+        Receipt *receipt = receiptsArray[indexPath.row];
+        [cell configureCellWithReceipt:receipt];
+        return cell;
+    }
+    
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"Hello";
+    NSArray *listOfTags = [self fetchTags];
+    Tag *tag = listOfTags[section];
+    return tag.tagName;
+}
+
+-(void)dataUpdated {
+    [self.tableView reloadData];
 }
 
 #pragma mark - Core Data
@@ -63,23 +91,21 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
 }
 
 -(NSArray *)fetchTags {
-    
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Tag"];
-    
     NSError *error = nil;
-    
     NSAsynchronousFetchResult *result = [self.context executeRequest:fetchRequest error:&error];
-    
     NSArray *arrayOfTags = result.finalResult;
-    
     return arrayOfTags;
-    
 }
 
 -(void)createTags {
     
     NSArray *arrayOfTags = [self fetchTags];
     NSLog(@"Number of items: %ld", arrayOfTags.count);
+    
+    for (Tag *tag in arrayOfTags) {
+        NSLog(@"%@", tag.tagName);
+    }
     
     if (arrayOfTags.count == 0) {
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag" inManagedObjectContext:self.context];
@@ -93,25 +119,8 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
         business.tagName = @"Business";
         
         NSError *error = nil;
-        
         [self.context save:&error];
-
     }
-
-    
-//    if (arrayOfTags.count == 0) {
-//        
-//        
-//        
-//     //   Tag *newTag = [[Tag alloc] initWithContext:self.context];
-//        
-//        //NSEntityDescription *tagDe
-//        
-////        Tag *record = [[Tag alloc] initWithEntity:Tag insertIntoManagedObjectContext:self.context];
-//
-////        Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag" inManagedObjectContext:self.context];
-//        
-//    }
 }
 
 #pragma mark - Segues
@@ -120,6 +129,7 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
     if ([segue.identifier isEqualToString:newReceiptSegueIdentifier]) {
         NewReceiptViewController *newReceiptVC = segue.destinationViewController;
         newReceiptVC.context = self.context;
+        newReceiptVC.delegate = self;
     }
 }
 
