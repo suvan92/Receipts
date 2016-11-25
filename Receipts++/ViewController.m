@@ -81,12 +81,27 @@ static NSString * const cellReuseIdentifier = @"receiptCell";
     [self.tableView reloadData];
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Tag *tag = ((NSArray *)[self fetchTags])[indexPath.section];
+        NSArray *arrayOfReceipts = [((NSSet *)[tag relationship]) allObjects];
+        Receipt *receiptToDelete = arrayOfReceipts[indexPath.row];
+        [self.context deleteObject:receiptToDelete];
+        [self.tableView reloadData];
+    }
+}
+
 #pragma mark - Core Data
 
 -(NSArray *)fetchReceipts {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Receipt"];
     NSError *error = nil;
-    NSArray *arrayOfReceipts = ((NSArray *)[self.context executeRequest:fetchRequest error:&error]);
+    NSAsynchronousFetchResult *result = [self.context executeRequest:fetchRequest error:&error];
+    NSArray *arrayOfReceipts = result.finalResult;
     return arrayOfReceipts;
 }
 

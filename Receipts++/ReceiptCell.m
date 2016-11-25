@@ -31,7 +31,8 @@
 
 -(void)configureCellWithReceipt:(Receipt *)recepit {
     self.descriptionLabel.text = recepit.note;
-    self.amountLabel.text = recepit.amount;
+    float floatAmount = [recepit.amount floatValue];
+    self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", floatAmount];
 }
 
 @end
